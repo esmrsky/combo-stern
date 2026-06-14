@@ -159,42 +159,42 @@ function initStages() {
 const SLOTS_DATA = {
   connection: {
     icon: "👥",
-    title: "Connection (Связь)",
+    title: "Connection",
     need: "To feel seen, valued, and integrated with a community of love.",
     counterfeit: "Scrolling social feeds, chasing vanity indexes, text message threads.",
     exit: "Vulnerability in community, shared meals, prayer, confession in person."
   },
   rest: {
     icon: "🕯️",
-    title: "Rest (Отдых)",
+    title: "Rest",
     need: "To restore reserves, unload stress, disconnect from demands.",
     counterfeit: "Doomscrolling, endless gaming, binge eating.",
     exit: "Sabbath resting, walks in nature, silence, sleeping, receiving rest as gift."
   },
   intimacy: {
     icon: "💞",
-    title: "Intimacy (Близость)",
+    title: "Intimacy",
     need: "To love and be loved unconditionally, sharing hidden spaces without fear.",
     counterfeit: "Pornography, codependency, parasocial validation.",
     exit: "Truth disclosure, abiding in unconditional grace, covenant friendships."
   },
   meaning: {
     icon: "🧭",
-    title: "Meaning (Смысл)",
+    title: "Meaning",
     need: "To align actions with a lasting purpose that outlives you.",
     counterfeit: "Workaholism, productivity streaks, material collection.",
     exit: "Self-giving service, creation care, resting in received justification."
   },
   mastery: {
     icon: "🛠️",
-    title: "Mastery (Мастерство)",
+    title: "Mastery",
     need: "To cultivate skills, express agency, and complete work.",
     counterfeit: "Duolingo/app streaks, virtual achievements, video game ranks.",
     exit: "Real craftsmanship, manual labor, slow-skills cultivation."
   },
   transcendence: {
     icon: "🌌",
-    title: "Transcendence (Трансцендентность)",
+    title: "Transcendence",
     need: "To touch the eternal, praise the beautiful, worship the ultimate.",
     counterfeit: "Substance consumption, political tribalism, screen addiction.",
     exit: "Contemplative prayer, choral/worship singing, structured liturgy, stargazing."
@@ -234,13 +234,51 @@ function initSlots() {
 // ============================================================
 function initAxisMap() {
   const nodes = document.querySelectorAll(".axis-node");
-  const quickBtns = document.querySelectorAll(".axis-quick-list button");
-  
-  function selectAxis(axisId) {
-    const data = AXES_DATA[axisId];
-    if (!data) return;
+  const grid = document.getElementById("axis-cards-grid");
 
-    // Highlight SVG Node
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  // Render cards
+  Object.keys(AXES_DATA).forEach(key => {
+    const data = AXES_DATA[key];
+    const card = document.createElement("div");
+    card.className = "axis-card";
+    card.id = `axis-card-${key}`;
+    card.dataset.axis = key;
+    card.innerHTML = `
+      <div class="axis-card-header">
+        <h3>${data.title}</h3>
+        <span class="axis-card-hunger">${data.hunger}</span>
+      </div>
+      <div class="axis-card-body">
+        <div class="axis-card-item">
+          <span class="axis-card-lbl">The Cue</span>
+          <p class="axis-card-val">${data.cue}</p>
+        </div>
+        <div class="axis-card-item">
+          <span class="axis-card-lbl">Counterfeit Routine</span>
+          <p class="axis-card-val">${data.counterfeit}</p>
+        </div>
+        <div class="axis-card-item">
+          <span class="axis-card-lbl">Stagnant Leak</span>
+          <p class="axis-card-val">${data.leak}</p>
+        </div>
+        <div class="axis-card-item">
+          <span class="axis-card-lbl">Self-Accusation Shame</span>
+          <p class="axis-card-val">${data.shame}</p>
+        </div>
+        <div class="axis-card-item exit">
+          <span class="axis-card-lbl">The Grace Exit</span>
+          <p class="axis-card-val highlight">${data.exit}</p>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  function highlightAxis(axisId) {
+    // Highlight SVG node
     nodes.forEach(n => {
       n.classList.remove("active");
       if (n.dataset.axis === axisId) {
@@ -248,49 +286,32 @@ function initAxisMap() {
       }
     });
 
-    // Highlight quick list buttons
-    quickBtns.forEach(btn => {
-      btn.classList.remove("active");
-      if (btn.dataset.axis === axisId) {
-        btn.classList.add("active");
+    // Highlight card
+    const cards = document.querySelectorAll(".axis-card");
+    cards.forEach(c => {
+      c.classList.remove("highlight");
+      if (c.dataset.axis === axisId) {
+        c.classList.add("highlight");
+        // Scroll to card
+        c.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
-
-    // Update detail pane
-    document.getElementById("axis-detail-title").innerText = data.title;
-    document.getElementById("axis-detail-hunger").innerHTML = `<strong>Core Hunger:</strong> ${data.hunger}`;
-    document.getElementById("axis-detail-cue").innerText = data.cue;
-    document.getElementById("axis-detail-counterfeit").innerText = data.counterfeit;
-    document.getElementById("axis-detail-leak").innerText = data.leak;
-    document.getElementById("axis-detail-shame").innerText = data.shame;
-    document.getElementById("axis-detail-exit").innerText = data.exit;
   }
 
   // Hook up SVG node clicks
   nodes.forEach(node => {
     node.addEventListener("click", () => {
-      selectAxis(node.dataset.axis);
+      highlightAxis(node.dataset.axis);
     });
   });
-
-  // Hook up quick buttons clicks
-  quickBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      selectAxis(btn.dataset.axis);
-    });
-  });
-
-  // Select first by default
-  selectAxis("rejection_acceptance");
 }
 
 // ============================================================
 // TAB 3: MODERN COUNTERFEITS & APP TRAPS DECK
 // ============================================================
 function initCounterfeits() {
-  const deck = document.getElementById("counterfeits-deck");
-  const detailCard = document.getElementById("counterfeits-detail-card");
-  const closeBtn = document.getElementById("cf-close-btn");
+  const container = document.getElementById("counterfeits-list");
+  if (!container) return;
 
   const icons = {
     rings: "🏃‍♂️",
@@ -300,43 +321,44 @@ function initCounterfeits() {
     scroll: "📱"
   };
 
-  // Render cards
-  deck.innerHTML = "";
+  container.innerHTML = "";
   Object.keys(APP_TRAPS_DATA).forEach(key => {
     const trap = APP_TRAPS_DATA[key];
     const card = document.createElement("div");
-    card.className = "counterfeit-card";
-    card.dataset.id = key;
+    card.className = "counterfeit-card-full";
+    card.id = `counterfeit-${key}`;
     card.innerHTML = `
-      <div class="cf-card-icon">${icons[key] || "📱"}</div>
-      <div class="cf-card-title">${trap.title}</div>
-      <div class="cf-card-axis">${trap.axis}</div>
+      <div class="cf-full-header">
+        <span class="cf-full-icon">${icons[key] || "📱"}</span>
+        <div>
+          <h3>${trap.title}</h3>
+          <span class="cf-full-axis">${trap.axis}</span>
+        </div>
+      </div>
+      <div class="cf-full-body">
+        <div class="cf-full-block">
+          <span class="cf-full-lbl">The Cue</span>
+          <p class="cf-full-val">${trap.cue}</p>
+        </div>
+        <div class="cf-full-block">
+          <span class="cf-full-lbl">Counterfeit Routine</span>
+          <p class="cf-full-val">${trap.routine}</p>
+        </div>
+        <div class="cf-full-block">
+          <span class="cf-full-lbl">Immediate Reward</span>
+          <p class="cf-full-val">${trap.reward}</p>
+        </div>
+        <div class="cf-full-block warning">
+          <span class="cf-full-lbl">How it Creates Dependence</span>
+          <p class="cf-full-val highlight-stress">${trap.dependency}</p>
+        </div>
+        <div class="cf-full-block success">
+          <span class="cf-full-lbl">Displacement Strategy (Grace Exit)</span>
+          <p class="cf-full-val highlight-grace">${trap.displacement}</p>
+        </div>
+      </div>
     `;
-
-    card.addEventListener("click", () => {
-      document.querySelectorAll(".counterfeit-card").forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
-
-      // Show details
-      detailCard.classList.remove("hidden");
-      document.getElementById("cf-detail-axis").innerText = trap.axis;
-      document.getElementById("cf-detail-title").innerText = trap.title;
-      document.getElementById("cf-detail-cue").innerText = trap.cue;
-      document.getElementById("cf-detail-routine").innerText = trap.routine;
-      document.getElementById("cf-detail-reward").innerText = trap.reward;
-      document.getElementById("cf-detail-dependency").innerText = trap.dependency;
-      document.getElementById("cf-detail-displacement").innerText = trap.displacement;
-
-      // Scroll detail card into view smoothly
-      detailCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-
-    deck.appendChild(card);
-  });
-
-  closeBtn.addEventListener("click", () => {
-    detailCard.classList.add("hidden");
-    document.querySelectorAll(".counterfeit-card").forEach(c => c.classList.remove("active"));
+    container.appendChild(card);
   });
 }
 
@@ -623,35 +645,40 @@ function drawChart() {
 // TAB 5: SPIRITUAL ARCHETYPES LOGIC
 // ============================================================
 function initArchetypes() {
-  const menuBtns = document.querySelectorAll("#archetypes-menu button");
+  const container = document.getElementById("archetypes-grid");
+  if (!container) return;
 
-  function selectArchetype(id) {
-    const data = ARCHETYPES_DATA[id];
-    if (!data) return;
-
-    menuBtns.forEach(btn => {
-      btn.classList.remove("active");
-      if (btn.dataset.figure === id) {
-        btn.classList.add("active");
-      }
-    });
-
-    // Update details
-    document.getElementById("ap-name").innerText = data.name;
-    document.getElementById("ap-calling").innerText = data.calling;
-    document.getElementById("ap-inverse").innerText = data.inverse;
-    document.getElementById("ap-failure").innerText = data.failure;
-    document.getElementById("ap-legacy").innerText = data.legacy;
-  }
-
-  menuBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      selectArchetype(btn.dataset.figure);
-    });
+  container.innerHTML = "";
+  Object.keys(ARCHETYPES_DATA).forEach(key => {
+    const data = ARCHETYPES_DATA[key];
+    const card = document.createElement("div");
+    card.className = "archetype-card-full";
+    card.id = `archetype-${key}`;
+    card.innerHTML = `
+      <div class="ap-full-header">
+        <h3>${data.name}</h3>
+      </div>
+      <div class="ap-full-body">
+        <div class="ap-full-block calling">
+          <span class="ap-full-lbl">Spiritual Calling</span>
+          <p class="ap-full-val">${data.calling}</p>
+        </div>
+        <div class="ap-full-block inverse">
+          <span class="ap-full-lbl">Inverse Frequency</span>
+          <p class="ap-full-val">${data.inverse}</p>
+        </div>
+        <div class="ap-full-block failure">
+          <span class="ap-full-lbl">Point of Attack / Failure</span>
+          <p class="ap-full-val">${data.failure}</p>
+        </div>
+        <div class="ap-full-block legacy">
+          <span class="ap-full-lbl">Generational Script (Legacy)</span>
+          <p class="ap-full-val">${data.legacy}</p>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
   });
-
-  // Select abraham by default
-  selectArchetype("abraham");
 }
 
 // ============================================================
@@ -793,16 +820,13 @@ function copyBlueprintToClipboard() {
 // ============================================================
 // TAB 7: BILINGUAL SCRIPTURAL GLOSSARY LOGIC
 // ============================================================
-let glossaryLang = "en"; // "en", "ru", or "bilingual"
 let activeGlossaryTag = "all";
 
 function initGlossary() {
   const searchInput = document.getElementById("glossary-search");
-  const langToggle = document.getElementById("glossary-lang");
   const tagButtons = document.querySelectorAll(".glossary-tag-btn");
 
   searchInput.addEventListener("input", renderGlossary);
-  langToggle.addEventListener("click", toggleGlossaryLanguage);
   
   tagButtons.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -816,24 +840,6 @@ function initGlossary() {
   renderGlossary();
 }
 
-function toggleGlossaryLanguage() {
-  const langLabel = document.getElementById("glossary-lang-lbl");
-  if (glossaryLang === "en") {
-    glossaryLang = "ru";
-    langLabel.innerText = "🇷🇺 RU";
-    showToast("Switched glossary to Russian", "info");
-  } else if (glossaryLang === "ru") {
-    glossaryLang = "bilingual";
-    langLabel.innerText = "🌐 BILINGUAL";
-    showToast("Switched glossary to side-by-side view", "info");
-  } else {
-    glossaryLang = "en";
-    langLabel.innerText = "🇬🇧 EN";
-    showToast("Switched glossary to English", "info");
-  }
-  renderGlossary();
-}
-
 function renderGlossary() {
   const container = document.getElementById("glossary-grid");
   const query = document.getElementById("glossary-search").value.toLowerCase().trim();
@@ -844,133 +850,58 @@ function renderGlossary() {
     // Filter by tag
     if (activeGlossaryTag !== "all" && !item.tags.includes(activeGlossaryTag)) return;
 
-    // Filter by search query (match English or Russian terms/definitions)
+    // Filter by search query (match term, synonyms, definition, theology, psychology, verses, topics)
     const matchesQuery = 
-      item.en.term.toLowerCase().includes(query) ||
-      item.ru.term.toLowerCase().includes(query) ||
-      item.en.synonyms.some(s => s.toLowerCase().includes(query)) ||
-      item.ru.synonyms.some(s => s.toLowerCase().includes(query)) ||
-      item.en.definition.toLowerCase().includes(query) ||
-      item.ru.definition.toLowerCase().includes(query);
+      item.term.toLowerCase().includes(query) ||
+      item.synonyms.some(s => s.toLowerCase().includes(query)) ||
+      item.definition.toLowerCase().includes(query) ||
+      item.theology.toLowerCase().includes(query) ||
+      item.psychology.toLowerCase().includes(query) ||
+      (item.verses && item.verses.some(v => v.toLowerCase().includes(query))) ||
+      (item.topics && item.topics.some(t => t.toLowerCase().includes(query)));
 
     if (query && !matchesQuery) return;
 
     const card = document.createElement("div");
     card.className = "glossary-card";
 
-    // Setup visual components based on glossaryLang state
-    let headerHTML = "";
-    let bodyHTML = "";
-
-    if (glossaryLang === "en") {
-      headerHTML = `
-        <div class="glossary-term-group">
-          <h3>${item.en.term}</h3>
-          <span class="glossary-translation">${item.ru.term}</span>
-        </div>
-      `;
-      bodyHTML = `
-        <div class="glossary-synonyms"><strong>Synonyms:</strong> ${item.en.synonyms.join(", ")}</div>
-        <div class="glossary-body-section">
-          <div class="glossary-section-block">
-            <span class="glossary-section-lbl">Definition</span>
-            <span class="glossary-section-val">${item.en.definition}</span>
-          </div>
-          <div class="glossary-section-block">
-            <span class="glossary-section-lbl">Theological Context</span>
-            <span class="glossary-section-val">${item.en.theology}</span>
-          </div>
-          <div class="glossary-section-block">
-            <span class="glossary-section-lbl">Psychological Mapping</span>
-            <span class="glossary-section-val psych">${item.en.psychology}</span>
-          </div>
-        </div>
-      `;
-    } else if (glossaryLang === "ru") {
-      headerHTML = `
-        <div class="glossary-term-group">
-          <h3>${item.ru.term}</h3>
-          <span class="glossary-translation">${item.en.term}</span>
-        </div>
-      `;
-      bodyHTML = `
-        <div class="glossary-synonyms"><strong>Синонимы:</strong> ${item.ru.synonyms.join(", ")}</div>
-        <div class="glossary-body-section">
-          <div class="glossary-section-block">
-            <span class="glossary-section-lbl">Определение</span>
-            <span class="glossary-section-val">${item.ru.definition}</span>
-          </div>
-          <div class="glossary-section-block">
-            <span class="glossary-section-lbl">Теологический контекст</span>
-            <span class="glossary-section-val">${item.ru.theology}</span>
-          </div>
-          <div class="glossary-section-block">
-            <span class="glossary-section-lbl">Психологический механизм</span>
-            <span class="glossary-section-val psych">${item.ru.psychology}</span>
-          </div>
-        </div>
-      `;
-    } else {
-      // BILINGUAL SIDE-BY-SIDE
-      headerHTML = `
-        <div class="glossary-term-group" style="width: 100%;">
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
-            <h3 style="font-size: 1.15rem;">🇬🇧 ${item.en.term}</h3>
-            <h3 style="font-size: 1.15rem; text-align: right;">🇷🇺 ${item.ru.term}</h3>
-          </div>
-        </div>
-      `;
-      bodyHTML = `
-        <div class="glossary-body-section" style="gap: 1.2rem;">
-          <div class="glossary-section-block" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div>
-              <span class="glossary-section-lbl">Definition</span>
-              <span class="glossary-section-val" style="font-size:0.8rem; display:block;">${item.en.definition}</span>
-            </div>
-            <div>
-              <span class="glossary-section-lbl">Определение</span>
-              <span class="glossary-section-val" style="font-size:0.8rem; display:block;">${item.ru.definition}</span>
-            </div>
-          </div>
-          
-          <div class="glossary-section-block" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div>
-              <span class="glossary-section-lbl">Theological Context</span>
-              <span class="glossary-section-val" style="font-size:0.8rem; display:block;">${item.en.theology}</span>
-            </div>
-            <div>
-              <span class="glossary-section-lbl">Теологический контекст</span>
-              <span class="glossary-section-val" style="font-size:0.8rem; display:block;">${item.ru.theology}</span>
-            </div>
-          </div>
-
-          <div class="glossary-section-block" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div>
-              <span class="glossary-section-lbl">Psychological Mapping</span>
-              <span class="glossary-section-val psych" style="font-size:0.8rem; display:block;">${item.en.psychology}</span>
-            </div>
-            <div>
-              <span class="glossary-section-lbl">Психологический механизм</span>
-              <span class="glossary-section-val psych" style="font-size:0.8rem; display:block;">${item.ru.psychology}</span>
-            </div>
-          </div>
-        </div>
-      `;
+    // Setup visual components
+    let versesHTML = "";
+    if (item.verses && item.verses.length > 0) {
+      versesHTML = `<div class="glossary-synonyms" style="margin-top: 0.5rem; background: var(--grace-soft); border-left: 2px solid var(--grace); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: var(--ink-dim);"><strong>Verses:</strong> ${item.verses.join(", ")}</div>`;
     }
 
-    // Render tags pill
-    let tagsHTML = `<div style="display:flex; gap:0.3rem; margin-top:auto; padding-top:1rem; border-top:1px dashed var(--border);">`;
-    item.tags.forEach(t => {
-      tagsHTML += `<span class="glossary-tag-btn active" style="padding: 1px 7px; font-size: 0.58rem; cursor:default;">${t}</span>`;
-    });
-    tagsHTML += `</div>`;
+    let topicsHTML = "";
+    if (item.topics && item.topics.length > 0) {
+      topicsHTML = `<div style="font-size: 0.72rem; color: var(--ink-faint); margin-top: 0.3rem;"><strong>Topics:</strong> ${item.topics.join(" · ")}</div>`;
+    }
 
     card.innerHTML = `
       <div class="glossary-card-header">
-        ${headerHTML}
+        <div class="glossary-term-group">
+          <h3>${item.term}</h3>
+        </div>
       </div>
-      ${bodyHTML}
-      ${tagsHTML}
+      <div class="glossary-synonyms"><strong>Synonyms:</strong> ${item.synonyms.join(", ")}</div>
+      ${versesHTML}
+      <div class="glossary-body-section">
+        <div class="glossary-section-block">
+          <span class="glossary-section-lbl">Definition</span>
+          <span class="glossary-section-val">${item.definition}</span>
+        </div>
+        <div class="glossary-section-block">
+          <span class="glossary-section-lbl">Theological Context</span>
+          <span class="glossary-section-val">${item.theology}</span>
+        </div>
+        <div class="glossary-section-block">
+          <span class="glossary-section-lbl">Psychological Mapping</span>
+          <span class="glossary-section-val psych">${item.psychology}</span>
+        </div>
+      </div>
+      ${topicsHTML}
+      <div style="display:flex; gap:0.3rem; margin-top:auto; padding-top:1rem; border-top:1px dashed var(--border);">
+        ${item.tags.map(t => `<span class="glossary-tag-btn active" style="padding: 1px 7px; font-size: 0.58rem; cursor:default; border-color: var(--accent); color: var(--accent);">${t}</span>`).join("")}
+      </div>
     `;
 
     container.appendChild(card);

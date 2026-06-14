@@ -24,7 +24,7 @@
   <nav class="sidebar" aria-label="Main Navigation">
     <div class="sidebar-brand">
       <div class="sidebar-logo">THE <b>LOOP BREAKER</b></div>
-      <p class="sidebar-desc">Bilingual Reference & Systems Theology Workbook</p>
+      <p class="sidebar-desc">Reference & Systems Theology Workbook</p>
     </div>
 
     <ul class="nav-menu" id="nav-menu">
@@ -60,7 +60,7 @@
       </li>
       <li class="nav-item">
         <button data-tab="glossary">
-          <span>🌐</span> Bilingual Glossary
+          <span>📖</span> Scriptural Glossary
         </button>
       </li>
     </ul>
@@ -70,7 +70,7 @@
         <!-- SVG will be injected by JavaScript -->
       </button>
       <div class="sidebar-footer-text">
-        BILINGUAL REF v3.5 · SECURE STATUS
+        REF v3.5 · SECURE STATUS
       </div>
     </div>
   </nav>
@@ -336,46 +336,10 @@
             </svg>
           </div>
 
-          <!-- Detail Panel Drawer -->
-          <div class="axis-details-card" id="axis-details-card">
-            <h3 id="axis-detail-title">Select an Axis</h3>
-            <div class="axis-hunger-group">
-              <span class="axis-detail-label">Core Hunger</span>
-              <p class="axis-detail-subtitle" id="axis-detail-hunger">Click on any coordinate node on the plane or select an axis below to inspect.</p>
-            </div>
-            
-            <div class="axis-detail-grid">
-              <div class="axis-detail-block">
-                <span class="axis-detail-label">The Cue (Trigger)</span>
-                <span class="axis-detail-value" id="axis-detail-cue">-</span>
-              </div>
-              <div class="axis-detail-block">
-                <span class="axis-detail-label">The Counterfeit (Striving)</span>
-                <span class="axis-detail-value" id="axis-detail-counterfeit">-</span>
-              </div>
-              <div class="axis-detail-block">
-                <span class="axis-detail-label">The Stagnant Leak</span>
-                <span class="axis-detail-value" id="axis-detail-leak">-</span>
-              </div>
-              <div class="axis-detail-block">
-                <span class="axis-detail-label">The Self-Accusation Shame</span>
-                <span class="axis-detail-value" id="axis-detail-shame">-</span>
-              </div>
-              <div class="axis-detail-block exit">
-                <span class="axis-detail-label">The Displacement Strategy (Grace Exit)</span>
-                <span class="axis-detail-value highlight" id="axis-detail-exit">-</span>
-              </div>
-            </div>
+          <!-- Cards container showing details for all axes at once -->
+          <div class="axis-cards-grid" id="axis-cards-grid">
+            <!-- Populated dynamically by JS -->
           </div>
-        </div>
-
-        <!-- Axis Quick List Selector -->
-        <div class="axis-quick-list" id="axis-quick-list">
-          <button class="filter-btn" data-axis="rejection_acceptance">Rejection vs. Acceptance</button>
-          <button class="filter-btn" data-axis="scarcity_abundance">Scarcity vs. Abundance</button>
-          <button class="filter-btn" data-axis="control_surrender">Control vs. Surrender</button>
-          <button class="filter-btn" data-axis="performance_standing">Performance vs. Standing</button>
-          <button class="filter-btn" data-axis="obscurity_renown">Obscurity vs. Renown</button>
         </div>
       </section>
 
@@ -389,43 +353,9 @@
           <p class="lede">Everyday applications are engineered as commercialized broken cisterns. They capture our existential hunger and lock us into continuous striving loops.</p>
         </div>
 
-        <!-- Card Deck -->
-        <div class="counterfeits-deck" id="counterfeits-deck">
+        <!-- Cards list showing all counterfeits at once -->
+        <div class="counterfeits-list" id="counterfeits-list">
           <!-- Populated dynamically by JS -->
-        </div>
-
-        <!-- Detail Comparison Drawer -->
-        <div class="counterfeits-detail-card hidden" id="counterfeits-detail-card">
-          <div class="cf-detail-header">
-            <div class="cf-detail-title-group">
-              <span class="cf-detail-axis" id="cf-detail-axis">Axis Mapping</span>
-              <h2 id="cf-detail-title">App Trap Details</h2>
-            </div>
-            <button class="cf-close-btn" id="cf-close-btn">&times;</button>
-          </div>
-          
-          <div class="cf-detail-grid">
-            <div class="cf-detail-block">
-              <span class="cf-detail-label">The Capture Hook (Cue)</span>
-              <p id="cf-detail-cue">-</p>
-            </div>
-            <div class="cf-detail-block">
-              <span class="cf-detail-label">The Counterfeit Routine</span>
-              <p id="cf-detail-routine">-</p>
-            </div>
-            <div class="cf-detail-block">
-              <span class="cf-detail-label">The Dopamine Reward</span>
-              <p id="cf-detail-reward">-</p>
-            </div>
-            <div class="cf-detail-block warning">
-              <span class="cf-detail-label">How it Creates Dependence</span>
-              <p id="cf-detail-dependency">-</p>
-            </div>
-            <div class="cf-detail-block success">
-              <span class="cf-detail-label">The Displacement Strategy (Grace Exit)</span>
-              <p id="cf-detail-displacement" class="highlight">-</p>
-            </div>
-          </div>
         </div>
 
         <!-- Everyday Tech Reference Matrix -->
@@ -513,7 +443,7 @@
               <h3>Select Compulsion Loop</h3>
               <div class="sim-variable-group" style="gap: 0.8rem;">
                 <label for="sim-loop-profile" class="sim-slider-label">Loop Profile Pattern:</label>
-                <select class="sim-select" id="sim-loop-profile" style="width: 100%; background: var(--bg-deep); border: 1px solid var(--border); color: var(--ink); padding: 0.6rem 0.8rem; border-radius: 8px; font-family: var(--ui); outline: none;">
+                <select class="sim-select" id="sim-loop-profile">
                   <option value="overworker">The Overworker Loop (Performance Axis)</option>
                   <option value="doomscroller">The Doomscroller Loop (Control Axis)</option>
                   <option value="pleaser">The People-Pleaser Loop (Acceptance Axis)</option>
@@ -564,11 +494,11 @@
             <!-- Behavioral Decoupler Card -->
             <div class="sim-card">
               <h3>Behavioral Decouplers</h3>
-              <div class="decoupler-button-group" style="display: flex; flex-direction: column; gap: 0.6rem;">
-                <button class="btn-decoupler striving" id="btn-inject-striving" style="width: 100%; background: var(--accent-soft); border: 1px solid var(--accent); color: var(--ink); padding: 0.75rem 1rem; border-radius: 8px; font-family: var(--ui); font-weight: 600; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s;">
+              <div class="decoupler-button-group">
+                <button class="btn-decoupler striving" id="btn-inject-striving">
                   ⚡ Inject Willpower Striving
                 </button>
-                <button class="btn-decoupler grace" id="btn-apply-exit" style="width: 100%; background: var(--grace-soft); border: 1px solid var(--grace); color: var(--grace); padding: 0.75rem 1rem; border-radius: 8px; font-family: var(--ui); font-weight: 600; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s;">
+                <button class="btn-decoupler grace" id="btn-apply-exit">
                   🌱 Apply Grace Exit
                 </button>
               </div>
@@ -686,43 +616,8 @@
           <p class="lede">Every spiritual calling has a corresponding point of vulnerability. The generational point of attack is the symmetric inversion of your design frequency.</p>
         </div>
 
-        <div class="archetypes-container" style="display: flex; flex-direction: column; gap: 2rem;">
-          <!-- Buttons to select figure -->
-          <div class="archetypes-menu" id="archetypes-menu" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <button class="filter-btn active" data-figure="abraham">Abraham (Авраам)</button>
-            <button class="filter-btn" data-figure="jacob">Jacob (Иаков)</button>
-            <button class="filter-btn" data-figure="david">David (Давид)</button>
-            <button class="filter-btn" data-figure="elijah">Elijah (Илия)</button>
-          </div>
-
-          <!-- Profile Sheet -->
-          <div class="archetype-profile-card" id="archetype-profile-card" style="background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; box-shadow: var(--shadow);">
-            <div class="ap-header" style="border-bottom: 1px solid var(--border-strong); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-              <h2 id="ap-name" style="font-size: 1.8rem; font-family: var(--display);">Abraham (Авраам)</h2>
-            </div>
-            
-            <div class="ap-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem;">
-              <div class="ap-section calling" style="background: var(--bg-deep); padding: 1.2rem; border-radius: 10px; border-left: 3px solid var(--grace);">
-                <span class="ap-label" style="font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; color: var(--grace); letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">Core Calling (Design Frequency)</span>
-                <p id="ap-calling" style="font-family: var(--read); font-size: 1rem; color: var(--ink);">-</p>
-              </div>
-              
-              <div class="ap-section inverse" style="background: var(--bg-deep); padding: 1.2rem; border-radius: 10px; border-left: 3px solid var(--accent);">
-                <span class="ap-label" style="font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; color: var(--accent); letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">Inverse Frequency (Point of Attack)</span>
-                <p id="ap-inverse" style="font-family: var(--ui); font-size: 1rem; color: var(--ink-dim);">-</p>
-              </div>
-              
-              <div class="ap-section failure" style="grid-column: 1 / -1; background: var(--bg-deep); padding: 1.2rem; border-radius: 10px; border-left: 3px solid var(--stress);">
-                <span class="ap-label" style="font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; color: var(--stress); letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">The Compulsion / Self-Effort Failure</span>
-                <p id="ap-failure" style="font-family: var(--read); font-size: 0.95rem; color: var(--ink-dim);">-</p>
-              </div>
-              
-              <div class="ap-section legacy" style="grid-column: 1 / -1; background: var(--bg-deep); padding: 1.2rem; border-radius: 10px; border-left: 3px solid var(--shame);">
-                <span class="ap-label" style="font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; color: var(--shame); letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">Generational Script (Bloodline Legacy)</span>
-                <p id="ap-legacy" style="font-family: var(--read); font-size: 0.95rem; color: var(--ink-dim);">-</p>
-              </div>
-            </div>
-          </div>
+        <div class="archetypes-grid" id="archetypes-grid">
+          <!-- Populated dynamically by JS -->
         </div>
       </section>
 
@@ -835,22 +730,19 @@
       </section>
 
       <!-- ============================================================
-           TAB 7: BILINGUAL SCRIPTURAL GLOSSARY (New Tab)
+           TAB 7: SCRIPTURAL GLOSSARY
            ============================================================ -->
       <section id="tab-glossary" class="tab-content">
         <div class="narrative-hero" style="margin-bottom: 2rem;">
           <span class="eyebrow">Academic Reference</span>
           <h2>Scripture & Psychological Glossary</h2>
           <p style="font-size:0.95rem; color:var(--ink-dim); margin-top:0.2rem;">
-            Deep etymologies, Hebrew/Greek roots, semantic nuances, and bilingual Russian translations for core Loop Breaker concepts.
+            Deep etymologies, Hebrew/Greek roots, semantic nuances, and scriptural cross-references for core Loop Breaker concepts.
           </p>
         </div>
 
         <div class="glossary-search-bar">
-          <input type="text" class="glossary-input" id="glossary-search" placeholder="Search terms, synonyms, definitions, or etymologies...">
-          <button class="glossary-lang-toggle" id="glossary-lang">
-            <span>🌐</span> <span id="glossary-lang-lbl">🇬🇧 EN</span>
-          </button>
+          <input type="text" class="glossary-input" id="glossary-search" placeholder="Search terms, synonyms, cross-references, or topics...">
         </div>
 
         <div class="glossary-tags-list">
