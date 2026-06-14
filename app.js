@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initStages();
   initSlots();
-  initCompulsionLoop();
-  initCases();
+  initAxisMap();
+  initCounterfeits();
   initSimulator();
-  initQuiz();
+  initArchetypes();
   initArchitect();
   initGlossary();
 });
@@ -230,140 +230,118 @@ function initSlots() {
 }
 
 // ============================================================
-// COMPULSION LOOP INTERACTIVE TOGGLE
+// TAB 2: EXISTENTIAL AXIS MAP LOGIC
 // ============================================================
-const LOOP_EXPLANATIONS = {
-  force: "<strong>By Force:</strong> You attempt to break the loop by out-muscling the impulse with sheer willpower. But the underlying need remains completely dry. The friction generates shame, which acts as a secondary cue, accelerating the next spin.",
-  grace: "<strong>By Grace:</strong> Instead of fighting the loop directly, you redirect the underlying core need directly to the fountain (re-sourcing). The loop loses its tension, and the cycle disintegrates."
-};
-
-function initCompulsionLoop() {
-  const toggleBtnForce = document.getElementById("loop-btn-force");
-  const toggleBtnGrace = document.getElementById("loop-btn-grace");
-  const container = document.getElementById("loop-toggle-wrap");
-  const explain = document.getElementById("loop-explanation");
+function initAxisMap() {
+  const nodes = document.querySelectorAll(".axis-node");
+  const quickBtns = document.querySelectorAll(".axis-quick-list button");
   
-  // SVG arrow indicators
-  const forceArrow = document.getElementById("loop-svg-force-arrow");
-  const forceLbl = document.getElementById("loop-svg-force-lbl");
-  const graceArrow = document.getElementById("loop-svg-grace-arrow");
-  const graceLbl = document.getElementById("loop-svg-grace-lbl");
-  const loopRing = document.getElementById("loop-svg-ring");
+  function selectAxis(axisId) {
+    const data = AXES_DATA[axisId];
+    if (!data) return;
 
-  function setMode(mode) {
-    const isGrace = mode === "grace";
-    
-    toggleBtnForce.classList.toggle("active", !isGrace);
-    toggleBtnGrace.classList.toggle("active", isGrace);
-    container.classList.toggle("grace", isGrace);
-    explain.innerHTML = isGrace ? LOOP_EXPLANATIONS.grace : LOOP_EXPLANATIONS.force;
-
-    // Toggle SVG displays
-    if (isGrace) {
-      graceArrow.style.opacity = "0.95";
-      graceLbl.style.opacity = "1";
-      forceArrow.style.opacity = "0.18";
-      forceLbl.style.opacity = "0.25";
-      graceArrow.classList.add("gflow");
-      loopRing.setAttribute("stroke", "#2f8a80");
-    } else {
-      graceArrow.style.opacity = "0";
-      graceLbl.style.opacity = "0";
-      forceArrow.style.opacity = "0.9";
-      forceLbl.style.opacity = "1";
-      graceArrow.classList.remove("gflow");
-      loopRing.setAttribute("stroke", "#5b4a64");
-    }
-  }
-
-  toggleBtnForce.addEventListener("click", () => setMode("force"));
-  toggleBtnGrace.addEventListener("click", () => setMode("grace"));
-  
-  setMode("force");
-}
-
-// ============================================================
-// CASE STUDIES EXPANDERS & FILTERING
-// ============================================================
-const CASES_DATA = [
-  { ref: "JOHN 4:1-26", title: "The Woman at the Well", pill: "Relational", category: "new", content: "She tries to quench a deep relational thirst with five successive husbands. Jesus offers a spring (*pēgē*) of living water that wells up from within, completely decoupling her validation from human relationships." },
-  { ref: "ROMANS 7:14-24", title: "The Wretched Man", pill: "Willpower", category: "new", content: "The classic split-willpower loop. The 'I' wishes to obey the law, but the members follow a separate script. The loop breaks when condemnation is legally removed in Romans 8:1." },
-  { ref: "LUKE 15:11-32", title: "The Prodigal Son", pill: "Escapism", category: "new", content: "Escaping identity constraints by scattering his inheritance (*asōtōs*) in the far country. The cistern dried up in a famine, leading to pig-pen remorse." },
-  { ref: "LUKE 15:11-32", title: "The Elder Brother", pill: "Performance", category: "new", content: "Digging a moral cistern of flawless compliance ('I served you like a slave'). Striving builds transactional resentment, locking him outside the father's feast." },
-  { ref: "LUKE 18:9-14", title: "Pharisee & Tax Collector", pill: "Comparison", category: "new", content: "The Pharisee measures his security by social ranking. The tax collector appeals to atonement (*hilasthēti*) and goes home justified (*dedikaiōmenos*) without comparisons." },
-  { ref: "NUMBERS 11:4-6", title: "Israel Craving Egypt", pill: "Relapse", category: "old", content: "Under stress in the wilderness, they romanticize their slavery because of the onions and garlic. Relapse occurs because familiar bondage feels safer than the trust required by daily Manna." },
-  { ref: "JOHN 15:1-11", title: "Abiding in the Vine", pill: "Moral", category: "new", content: "Jesus commands the branch to stay connected (*menō*) to the true vine. moral growth (fruit) is an organic consequence of receiving life sap, not mechanical straining." }
-];
-
-function initCases() {
-  const grid = document.getElementById("cases-grid");
-  const filterButtons = document.querySelectorAll(".filter-btn");
-
-  function renderCases(category) {
-    grid.innerHTML = "";
-    
-    CASES_DATA.forEach((c, index) => {
-      if (category !== "all" && c.category !== category) return;
-      
-      const card = document.createElement("div");
-      card.className = "case-card";
-      card.innerHTML = `
-        <button class="case-card-header">
-          <div class="case-info">
-            <span class="case-ref">${c.ref}</span>
-            <span class="case-title">${c.title}</span>
-            <span class="case-pill">${c.pill}</span>
-          </div>
-          <svg class="stage-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 5l7 7-7 7"/>
-          </svg>
-        </button>
-        <div class="stage-body">
-          <div class="case-body-inner">
-            <p>${c.content}</p>
-          </div>
-        </div>
-      `;
-
-      const header = card.querySelector(".case-card-header");
-      const body = card.querySelector(".stage-body");
-      
-      header.addEventListener("click", () => {
-        const isOpen = card.classList.contains("open");
-        
-        document.querySelectorAll(".case-card").forEach(x => {
-          if (x !== card && x.classList.contains("open")) {
-            x.classList.remove("open");
-            x.querySelector(".stage-body").style.maxHeight = "0";
-          }
-        });
-
-        if (isOpen) {
-          card.classList.remove("open");
-          body.style.maxHeight = "0";
-        } else {
-          card.classList.add("open");
-          body.style.maxHeight = `${body.scrollHeight}px`;
-        }
-      });
-
-      grid.appendChild(card);
+    // Highlight SVG Node
+    nodes.forEach(n => {
+      n.classList.remove("active");
+      if (n.dataset.axis === axisId) {
+        n.classList.add("active");
+      }
     });
+
+    // Highlight quick list buttons
+    quickBtns.forEach(btn => {
+      btn.classList.remove("active");
+      if (btn.dataset.axis === axisId) {
+        btn.classList.add("active");
+      }
+    });
+
+    // Update detail pane
+    document.getElementById("axis-detail-title").innerText = data.title;
+    document.getElementById("axis-detail-hunger").innerHTML = `<strong>Core Hunger:</strong> ${data.hunger}`;
+    document.getElementById("axis-detail-cue").innerText = data.cue;
+    document.getElementById("axis-detail-counterfeit").innerText = data.counterfeit;
+    document.getElementById("axis-detail-leak").innerText = data.leak;
+    document.getElementById("axis-detail-shame").innerText = data.shame;
+    document.getElementById("axis-detail-exit").innerText = data.exit;
   }
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      filterButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderCases(btn.dataset.category);
+  // Hook up SVG node clicks
+  nodes.forEach(node => {
+    node.addEventListener("click", () => {
+      selectAxis(node.dataset.axis);
     });
   });
 
-  renderCases("all");
+  // Hook up quick buttons clicks
+  quickBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectAxis(btn.dataset.axis);
+    });
+  });
+
+  // Select first by default
+  selectAxis("rejection_acceptance");
 }
 
 // ============================================================
-// TAB 4: SANDBOX SIMULATOR PHYSICS ENGINE
+// TAB 3: MODERN COUNTERFEITS & APP TRAPS DECK
+// ============================================================
+function initCounterfeits() {
+  const deck = document.getElementById("counterfeits-deck");
+  const detailCard = document.getElementById("counterfeits-detail-card");
+  const closeBtn = document.getElementById("cf-close-btn");
+
+  const icons = {
+    rings: "🏃‍♂️",
+    slack: "💬",
+    linkedin: "🔍",
+    streaks: "🦉",
+    scroll: "📱"
+  };
+
+  // Render cards
+  deck.innerHTML = "";
+  Object.keys(APP_TRAPS_DATA).forEach(key => {
+    const trap = APP_TRAPS_DATA[key];
+    const card = document.createElement("div");
+    card.className = "counterfeit-card";
+    card.dataset.id = key;
+    card.innerHTML = `
+      <div class="cf-card-icon">${icons[key] || "📱"}</div>
+      <div class="cf-card-title">${trap.title}</div>
+      <div class="cf-card-axis">${trap.axis}</div>
+    `;
+
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".counterfeit-card").forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
+
+      // Show details
+      detailCard.classList.remove("hidden");
+      document.getElementById("cf-detail-axis").innerText = trap.axis;
+      document.getElementById("cf-detail-title").innerText = trap.title;
+      document.getElementById("cf-detail-cue").innerText = trap.cue;
+      document.getElementById("cf-detail-routine").innerText = trap.routine;
+      document.getElementById("cf-detail-reward").innerText = trap.reward;
+      document.getElementById("cf-detail-dependency").innerText = trap.dependency;
+      document.getElementById("cf-detail-displacement").innerText = trap.displacement;
+
+      // Scroll detail card into view smoothly
+      detailCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    deck.appendChild(card);
+  });
+
+  closeBtn.addEventListener("click", () => {
+    detailCard.classList.add("hidden");
+    document.querySelectorAll(".counterfeit-card").forEach(c => c.classList.remove("active"));
+  });
+}
+
+// ============================================================
+// TAB 4: COMPULSION LOOP SIMULATOR PHYSICS ENGINE
 // ============================================================
 let simInterval = null;
 let W = 100; // Willpower
@@ -387,6 +365,12 @@ function initSimulator() {
   canvas = document.getElementById("sim-chart");
   if (canvas) ctx = canvas.getContext("2d");
 
+  // Profile selection
+  const profileSelect = document.getElementById("sim-loop-profile");
+  profileSelect.addEventListener("change", () => {
+    selectLoopProfile(profileSelect.value);
+  });
+
   // Hook up event listeners for inputs
   document.getElementById("param-leak").addEventListener("input", syncSimParameters);
   document.getElementById("param-shame").addEventListener("input", syncSimParameters);
@@ -401,14 +385,76 @@ function initSimulator() {
   document.getElementById("sim-par-works").addEventListener("click", () => setSimParadigm("works"));
   document.getElementById("sim-par-grace").addEventListener("click", () => setSimParadigm("grace"));
 
-  // Event injectors
-  document.getElementById("evt-slack").addEventListener("click", () => injectEvent("slack"));
-  document.getElementById("evt-metric").addEventListener("click", () => injectEvent("metric"));
-  document.getElementById("evt-linkedin").addEventListener("click", () => injectEvent("linkedin"));
-  document.getElementById("evt-grounding").addEventListener("click", () => injectEvent("grounding"));
+  // Decoupler buttons
+  document.getElementById("btn-inject-striving").addEventListener("click", () => {
+    if (!isRunning) {
+      showToast("Start the engine first to inject striving actions.", "error");
+      return;
+    }
+    const profileKey = profileSelect.value;
+    const profile = SIM_LOOPS_DATA[profileKey];
+    if (!profile) return;
+
+    // Apply deltas
+    W = Math.max(0, Math.min(100, W + profile.strivingDelta.W));
+    S = Math.max(0, Math.min(100, S + profile.strivingDelta.S));
+    SH = Math.max(0, Math.min(100, SH + profile.strivingDelta.SH));
+
+    logTerminal(`⚡ [Striving Action] ${profile.strivingMsg}`, "text-amber-500");
+    updateSimUI();
+    drawChart();
+  });
+
+  document.getElementById("btn-apply-exit").addEventListener("click", () => {
+    if (!isRunning) {
+      showToast("Start the engine first to apply a Grace exit.", "error");
+      return;
+    }
+    const profileKey = profileSelect.value;
+    const profile = SIM_LOOPS_DATA[profileKey];
+    if (!profile) return;
+
+    // Apply deltas
+    W = Math.max(0, Math.min(100, W + profile.exitDelta.W));
+    S = Math.max(0, Math.min(100, S + profile.exitDelta.S));
+    SH = Math.max(0, Math.min(100, SH + profile.exitDelta.SH));
+
+    // Switch active paradigm to Grace
+    setSimParadigm("grace");
+
+    logTerminal(`🌱 [Grace Exit] ${profile.exitMsg}`, "text-emerald-500");
+    updateSimUI();
+    drawChart();
+  });
+
+  // Initial load
+  selectLoopProfile(profileSelect.value);
+}
+
+function selectLoopProfile(profileKey) {
+  const profile = SIM_LOOPS_DATA[profileKey];
+  if (!profile) return;
+
+  W = profile.initial.W;
+  S = profile.initial.S;
+  SH = profile.initial.SH;
+
+  document.getElementById("sim-profile-desc").innerHTML = `<strong>Starting metrics:</strong> Willpower: ${W}, Stress: ${S}, Shame: ${SH}.`;
+
+  // Auto-fill sliders
+  document.getElementById("param-leak").value = profile.params.leak;
+  document.getElementById("param-shame").value = profile.params.shame;
+  document.getElementById("param-grace").value = profile.params.grace;
 
   syncSimParameters();
-  resetSimulation();
+  updateSimUI();
+  
+  // Reset logs
+  document.getElementById("sim-terminal-logs").innerHTML = `<div class="mono text-stone-500" style="font-size:0.72rem;"><span style="color:var(--ink-faint)">[System]</span> Selected profile: ${profile.title}. Ready to run.</div>`;
+  setSimParadigm("works");
+
+  dataPoints = [];
+  drawChart();
 }
 
 function syncSimParameters() {
@@ -419,13 +465,6 @@ function syncSimParameters() {
   document.getElementById("lbl-leak").innerText = k_leak.toFixed(1);
   document.getElementById("lbl-shame").innerText = F_shame.toFixed(1);
   document.getElementById("lbl-grace").innerText = g_grace.toFixed(1);
-
-  // Adjust SVGs drip rate
-  const drip = document.getElementById("cistern-drip-flow");
-  if (drip) {
-    const duration = Math.max(0.3, 1.8 - (k_leak * 0.7));
-    drip.style.animationDuration = `${duration}s`;
-  }
 }
 
 function resizeCanvas() {
@@ -456,39 +495,18 @@ function setSimParadigm(paradigm) {
   const tglWrap = document.getElementById("sim-tgl-wrap");
   const desc = document.getElementById("sim-paradigm-desc");
 
-  // SVG cistern handles
-  const fill = document.getElementById("cistern-svg-water-fill");
-  const drip = document.getElementById("cistern-drip-flow");
-  const lbl = document.getElementById("cistern-svg-label");
-
   if (paradigm === "works") {
     btnWorks.classList.add("active");
     btnGrace.classList.remove("active");
     tglWrap.classList.remove("grace");
-    desc.innerHTML = "<strong>Works:</strong> Identity is leaky and transaction-based. Willpower is continuously depleted to prove self-worth.";
-    
-    if (fill) fill.setAttribute("fill", "#F3651C");
-    if (drip) drip.style.display = "block";
-    if (lbl) {
-      lbl.innerText = "LEAKY";
-      lbl.setAttribute("fill", "#F3651C");
-    }
-
-    logTerminal("⚠️ Loaded Works loop. Baseline leakage initialized.", "text-amber-500");
+    desc.innerHTML = "<strong>Works Paradigm:</strong> Worth must be generated. Willpower drains dry under performance anxiety and shame.";
+    logTerminal("⚠️ Loaded Works mode. Striving drain active.", "text-amber-500");
   } else {
     btnGrace.classList.add("active");
     btnWorks.classList.remove("active");
     tglWrap.classList.add("grace");
-    desc.innerHTML = "<strong>Grace:</strong> Identity is secure and gifted. Striving ceases; water level is sealed; reserves naturally recover.";
-
-    if (fill) fill.setAttribute("fill", "#10B981");
-    if (drip) drip.style.display = "none";
-    if (lbl) {
-      lbl.innerText = "SEALED";
-      lbl.setAttribute("fill", "#10B981");
-    }
-
-    logTerminal("🛡️ Loaded Grace state. Cistern sealed. Striving disabled.", "text-emerald-500");
+    desc.innerHTML = "<strong>Grace Paradigm:</strong> Worth is unconditional. Recovery begins as the self stops out-muscling the self.";
+    logTerminal("🛡️ Loaded Grace mode. Recovery curves initialized.", "text-emerald-500");
   }
   updateSimUI();
 }
@@ -499,7 +517,7 @@ function startSimulation() {
   document.getElementById("sim-btn-start").disabled = true;
   document.getElementById("sim-btn-pause").disabled = false;
   
-  logTerminal("🚀 Simulation run-loop started.", "text-stone-200");
+  logTerminal("🚀 Simulator engine running.", "text-stone-200");
 
   simInterval = setInterval(() => {
     if (activeParadigm === "works") {
@@ -508,12 +526,12 @@ function startSimulation() {
       W = Math.max(0, W - loss);
       S = Math.min(100, S + 0.25 * k_leak);
 
-      // Willpower breakdown triggers shame feedback loops
+      // Willpower depletion triggers shame feedback
       if (W < 30) {
         SH = Math.min(100, SH + 1.2 * F_shame);
-        S = Math.min(100, S + 0.9 * F_shame); // Shame raises stress levels
+        S = Math.min(100, S + 0.9 * F_shame); // Shame raises stress
         if (Math.random() < 0.15) {
-          logTerminal("💥 Willpower failure! Self-condemnation feedback loop running.", "text-fuchsia-400");
+          logTerminal("💥 Willpower critical! Self-condemnation voice active.", "text-fuchsia-400");
         }
       }
     } else {
@@ -539,60 +557,13 @@ function pauseSimulation() {
   clearInterval(simInterval);
   document.getElementById("sim-btn-start").disabled = false;
   document.getElementById("sim-btn-pause").disabled = true;
-  logTerminal("⏸️ Simulation paused.", "text-stone-500");
+  logTerminal("⏸️ Simulator engine paused.", "text-stone-500");
 }
 
 function resetSimulation() {
   pauseSimulation();
-  W = 100;
-  S = 10;
-  SH = 0;
-  dataPoints = [];
-  setSimParadigm("works");
-  document.getElementById("sim-terminal-logs").innerHTML = `<div class="mono text-stone-500" style="font-size:0.72rem;"><span style="color:var(--ink-faint)">[System]</span> Resting state. Run simulation.</div>`;
-  updateSimUI();
-  drawChart();
-}
-
-function injectEvent(evt) {
-  if (!isRunning) {
-    showToast("Start simulation to inject events", "error");
-    return;
-  }
-
-  if (evt === "slack") {
-    if (activeParadigm === "works") {
-      S = Math.min(100, S + 18);
-      W = Math.max(0, W - 12);
-      logTerminal("💬 Late Slack message! Stress level rises. (+18 Stress, -12 Willpower)", "text-red-400");
-    } else {
-      S = Math.min(100, S + 4);
-      logTerminal("🛡️ Work message dismissed without status anxiety. (+4 Minor stress resolved)", "text-emerald-400");
-    }
-  } else if (evt === "metric") {
-    if (activeParadigm === "works") {
-      SH = Math.min(100, SH + 25);
-      W = Math.max(0, W - 15);
-      S = Math.min(100, S + 10);
-      logTerminal("🏃‍♂️ Watch Ring / Streak Missed! Striving failure. (+25 Shame, +10 Stress, -15 Willpower)", "text-fuchsia-400");
-    } else {
-      logTerminal("🛡️ Activity targets missed, but secure worth remains unthreatened.", "text-emerald-400");
-    }
-  } else if (evt === "linkedin") {
-    if (activeParadigm === "works") {
-      S = Math.min(100, S + 12);
-      SH = Math.min(100, SH + 15);
-      logTerminal("🔍 Scrolled LinkedIn peer promotions. Comparison triggered. (+12 Stress, +15 Shame)", "text-amber-500");
-    } else {
-      logTerminal("🛡️ Scrolled feed. Glad for friends without feeling deficit.", "text-emerald-400");
-    }
-  } else if (evt === "grounding") {
-    S = Math.max(0, S - 30);
-    SH = Math.max(0, SH - 25);
-    W = Math.min(100, W + 20);
-    logTerminal("🌱 Meditation on secure adoption and grace. System cooled. (-30 Stress, -25 Shame, +20 Willpower)", "text-emerald-400");
-  }
-  updateSimUI();
+  const profileKey = document.getElementById("sim-loop-profile").value;
+  selectLoopProfile(profileKey);
 }
 
 function updateSimUI() {
@@ -614,7 +585,7 @@ function drawChart() {
   const dx = canvas.width / (maxDataPoints - 1);
   const dy = canvas.height / 100;
 
-  // Grid reference lines
+  // Grid lines
   const theme = document.documentElement.getAttribute("data-theme");
   ctx.strokeStyle = theme === "dark" ? "rgba(242, 235, 220, 0.04)" : "rgba(33, 25, 19, 0.04)";
   ctx.lineWidth = 1;
@@ -649,55 +620,38 @@ function drawChart() {
 }
 
 // ============================================================
-// TAB 5: APP DIAGNOSTIC QUIZ
+// TAB 5: SPIRITUAL ARCHETYPES LOGIC
 // ============================================================
-function initQuiz() {
-  const checkboxes = document.querySelectorAll(".quiz-check-input");
-  checkboxes.forEach(cb => {
-    cb.addEventListener("change", calculateQuizScore);
-  });
-  calculateQuizScore();
-}
+function initArchetypes() {
+  const menuBtns = document.querySelectorAll("#archetypes-menu button");
 
-function calculateQuizScore() {
-  const checkboxes = document.querySelectorAll(".quiz-check-input");
-  let score = 0;
-  checkboxes.forEach(cb => {
-    if (cb.checked) score += 20;
-  });
+  function selectArchetype(id) {
+    const data = ARCHETYPES_DATA[id];
+    if (!data) return;
 
-  const num = document.getElementById("quiz-val-score");
-  const verdict = document.getElementById("quiz-txt-verdict");
-  const explain = document.getElementById("quiz-txt-explain");
+    menuBtns.forEach(btn => {
+      btn.classList.remove("active");
+      if (btn.dataset.figure === id) {
+        btn.classList.add("active");
+      }
+    });
 
-  num.innerText = `${score}%`;
-
-  if (score === 0) {
-    num.style.color = "var(--ink-dim)";
-    verdict.innerText = "Innocent Utility";
-    verdict.style.color = "var(--ink-dim)";
-    explain.innerText = "This app behaves as a basic functional tool. No toxic triggers detected. Safe for identity.";
-  } else if (score <= 40) {
-    num.style.color = "var(--grace)";
-    verdict.innerText = "Low-Stress Utility";
-    verdict.style.color = "var(--grace)";
-    explain.innerText = "Minor progress markers are active. Low risk of compulsion, but may trigger stress if personal reserves are depleted.";
-  } else if (score <= 60) {
-    num.style.color = "var(--gold)";
-    verdict.innerText = "Willpower Taxing Engine";
-    verdict.style.color = "var(--gold)";
-    explain.innerText = "The app utilizes loss aversion or streaks. Willpower is actively consumed to maintain targets under fatigue.";
-  } else if (score <= 80) {
-    num.style.color = "var(--accent)";
-    verdict.innerText = "High-Threat Worth Contingency";
-    verdict.style.color = "var(--accent)";
-    explain.innerText = "Strict daily target penalties and public competitive leaderboards. Basic self-worth is systematically made contingent on metrics.";
-  } else {
-    num.style.color = "var(--stress)";
-    verdict.innerText = "Predatory Striving Core";
-    verdict.style.color = "var(--stress)";
-    explain.innerText = "Highly toxic. Design patterns are calibrated to build a digital broken cistern, exploiting shame loops to force engagement.";
+    // Update details
+    document.getElementById("ap-name").innerText = data.name;
+    document.getElementById("ap-calling").innerText = data.calling;
+    document.getElementById("ap-inverse").innerText = data.inverse;
+    document.getElementById("ap-failure").innerText = data.failure;
+    document.getElementById("ap-legacy").innerText = data.legacy;
   }
+
+  menuBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectArchetype(btn.dataset.figure);
+    });
+  });
+
+  // Select abraham by default
+  selectArchetype("abraham");
 }
 
 // ============================================================

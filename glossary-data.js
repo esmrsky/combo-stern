@@ -1,3 +1,6 @@
+// ============================================================
+// BILINGUAL GLOSSARY DATABASE
+// ============================================================
 const GLOSSARY_DATA = [
   {
     "id": "broken_cistern",
@@ -83,7 +86,7 @@ const GLOSSARY_DATA = [
     "ru": {
       "term": "Стыд",
       "synonyms": ["Самоосуждение", "Чувство ущербности", "Самообвинение", "Реакция сокрытия"],
-      "definition": "Болезненное эмоциональное состояние, возникающее из убеждения в своей фундаментальной неполноценности, отверженности или недостоинстве. В цикле навязчивого поведения стыд служит топливом для рецидива.",
+      "definition": "Болезненное эмоциональное состояние, возникающее из убеждения в своей фундаментальной неполноценности, отверженности или недостоинстве. В цикле навязчивого поведения стыд служит топливом для рецива.",
       "theology": "Первая реакция после грехопадения в Эдеме (Бытие 3) — попытка спрятаться, прикрыться листьями и страх. Также понятие *катакрима* (осуждение/уголовное рабство) у Павла, приковывающее душу к самоненависти.",
       "psychology": "Высокострессовая обратная связь. Когда воля не справляется с поддержанием ложного источника, эго атакует само себя. Возникающий душевный дискомфорт требует немедленного обезболивания, замыкая цикл."
     },
@@ -126,111 +129,285 @@ const GLOSSARY_DATA = [
     "tags": ["Psychological", "Theological"]
   },
   {
-    "id": "disordered_loves",
+    "id": "axis_rejection_acceptance",
     "en": {
-      "term": "Disordered Loves",
-      "synonyms": ["Ordo amoris", "Disordered sourcing", "Misplaced devotion", "Ordinata caritas"],
-      "definition": "Augustine's concept that moral and psychological suffering arises not from loving bad things, but from loving good things in the wrong order or expecting ultimate satisfaction from secondary gifts.",
-      "theology": "Augustine's *Ordo Amoris* (hierarchy of love). Loving the gift above the Giver, or treating a created asset (career, spouse) as if it were the Creator.",
-      "psychology": "Cognitive distortion where a finite asset (social ranking, thinness, productivity) is given ultimate importance. This places an intolerable psychological pressure on the asset, causing it to crack."
+      "term": "Rejection vs. Acceptance",
+      "synonyms": ["Social exclusion", "Codependency", "Belonging hunger", "Fawning"],
+      "definition": "The existential axis dealing with the human need for relational connection. Striving in this axis leads to people-pleasing and fawning, while Grace provides security in unconditional adoption.",
+      "theology": "Moves from the alienation of Genesis 3 (hiding and covering) to secure adoption (*huiothesia*) in Ephesians 1:5, establishing acceptance prior to social performance.",
+      "psychology": "Examines the fear of exclusion, which triggers the same neurobiological pain centers as physical injury, contrasted with secure attachment theory."
     },
     "ru": {
-      "term": "Неупорядоченная любовь",
-      "synonyms": ["Нарушенный порядок любви", "Ошибочный источник", "Искаженная привязанность", "Ordo amoris"],
-      "definition": "Августиновская концепция, утверждающая, что душевные страдания проистекают не из любви к плохим вещам, а из любви к хорошим вещам в неправильном порядке или из ожидания абсолютного счастья от вторичных даров.",
-      "theology": "Учение Блаженного Августина об *Ordo Amoris* (порядке любви). Попытка любить творение больше Творца или относиться к конечному благу (карьера, супруг) как к божеству.",
-      "psychology": "Когнитивное искажение, при котором конечному благу (социальный рейтинг, худоба, продуктивность) придается абсолютное значение. Это создает невыносимое давление на объект привязанности, разрушая его."
+      "term": "Отвержение против Принятия",
+      "synonyms": ["Социальное исключение", "Созависимость", "Жажда принадлежности", "Угодничество"],
+      "definition": "Экзистенциальная ось, связанная с потребностью в отношениях. Борьба на этой оси ведет к человекоугодию, тогда как Благодать дает безопасность в безусловном усыновлении.",
+      "theology": "Переход от отчуждения в Бытии 3 (попытка спрятаться) к безопасному усыновлению (хуйотезия) в Ефесянам 1:5, утверждающему принятие до начала любых действий.",
+      "psychology": "Изучает страх отвержения, который активирует те же нейробиологические центры боли, что и физическая травма, противопоставляя его теории надежной привязанности."
     },
     "tags": ["Theological", "Psychological"]
   },
   {
-    "id": "expulsive_power",
+    "id": "axis_scarcity_abundance",
     "en": {
-      "term": "Expulsive Power of a New Affection",
-      "synonyms": ["Crowding out", "Superior attachment", "Thomas Chalmers' law", "Substitution strategy"],
-      "definition": "The theological and psychological principle that a deep-seated habit or love cannot be forced out by sheer negation (willpower); it can only be crowded out by the introduction of a new, vastly superior attachment.",
-      "theology": "Coined by Thomas Chalmers in 1813. The heart abhors a vacuum; the love of the world is not willed out of the soul, but displaced by the far greater beauty and worth of the Gospel.",
-      "psychology": "Replacement therapy. Instead of demanding that the brain ignore a strong cue-reward pathway, you introduce a more satisfying, high-value alternative that naturally overrides the old default."
+      "term": "Scarcity vs. Abundance",
+      "synonyms": ["Resource anxiety", "Hoarding", "Retail therapy", "Catastrophe planning"],
+      "definition": "The existential axis focused on security and survival. The Works paradigm drives hoarding and resource panic, whereas Grace brings peace in the Father's daily provision.",
+      "theology": "Contrast between Israel hoarding excess Manna in the wilderness (Exodus 16) and the lifestyle of trust outlined in Matthew 6 (birds of the air).",
+      "psychology": "The 'scarcity mindset' which narrows cognitive bandwidth and forces short-term, defensive decisions, resolved by establishing safety baseline."
     },
     "ru": {
-      "term": "Вытесняющая сила новой привязанности",
-      "synonyms": ["Замещение любви", "Закон Чалмерса", "Вытеснение ценностью", "Принцип новой любви"],
-      "definition": "Принцип, утверждающий, что укоренившуюся привычку или привязанность нельзя изгнать голым отрицанием (силой воли); ее можно только вытеснить, предложив взамен новую, превосходящую привязанность.",
-      "theology": "Формулировка Томаса Чалмерса (1813 г.). Сердце не терпит пустоты; любовь к миру не изгоняется волевым решением, а вытесняется созерцанием красоты и ценности Евангелия.",
-      "psychology": "Терапия замещения привычек. Вместо требований игнорировать старый путь «триггер-награда», мозгу предлагают более ценную альтернативу, которая естественным образом перезаписывает старую схему."
+      "term": "Скудость против Изобилия",
+      "synonyms": ["Тревога о ресурсах", "Накопительство", "Шопинготерапия", "Страх нищеты"],
+      "definition": "Экзистенциальная ось, сосредоточенная на выживании и безопасности. Законничество заставляет копить и паниковать, тогда как Благодать дает покой в ежедневной заботе Отца.",
+      "theology": "Контраст между Израилем, запасающим манну в пустыне вопреки повелению (Исход 16), и жизнью доверия, описанной в Матфея 6 (птицы небесные).",
+      "psychology": "Дефицитарное мышление, которое сужает когнитивный диапазон и заставляет принимать краткосрочные оборонительные решения, преодолеваемое через ощущение базовой безопасности."
     },
     "tags": ["Theological", "Psychological"]
   },
   {
-    "id": "indicative_imperative",
+    "id": "axis_control_surrender",
     "en": {
-      "term": "Indicative vs. Imperative",
-      "synonyms": ["Status before duty", "Given identity", "Grammar of grace", "Being before doing"],
-      "definition": "The structural grammar of the gospel: the Indicative (the statement of fact about who you already are in grace) must always precede and establish the Imperative (the command of what you must do).",
-      "theology": "Pauline theology: 'You have been washed' (indicative) ➔ 'Therefore, flee sin' (imperative). Reversing this order (perform to become) is the definition of legalism/works.",
-      "psychology": "Operating from a secure base. Acting *from* acceptance rather than *for* acceptance removes performance anxiety, reducing stress and willpower depletion."
+      "term": "Control vs. Surrender",
+      "synonyms": ["Micromanaging", "Planning obsession", "Information binging", "Perfectionism"],
+      "definition": "The existential axis dealing with safety and predictability. The counterfeit is obsessive planning to avoid vulnerability, which is broken by surrendering limits to providence.",
+      "theology": "Human pride claiming self-sovereignty (Genesis 11, Babel) vs. yielding to creaturely limits and resting in the sovereignty of God.",
+      "psychology": "The drive to manage anxiety by controlling environment variables, causing cognitive overload, resolved through exposure to uncertainty."
     },
     "ru": {
-      "term": "Индикатив и императив",
-      "synonyms": ["Бытие пред действием", "Статус перед долгом", "Грамматика благодати", "Идентичность пред делом"],
-      "definition": "Структурное правило Евангелия: Индикатив (утверждение факта о том, кем вы уже являетесь благодаря благодати) должен всегда предшествовать Императиву (повелению о том, что вам нужно делать).",
-      "theology": "Теология Павла: «Вы омыты» (индикатив) ➔ «Поэтому бегите блуда» (императив). Перемена этого порядка (действуй, чтобы стать) — суть законничества.",
-      "psychology": "Действие из безопасной базы. Поведение *из* принятия, а не *ради* принятия, снимает тревогу оценки, снижает стресс и предотвращает выгорание."
+      "term": "Контроль против Предания",
+      "synonyms": ["Микроменеджмент", "Одержимость планированием", "Информационное переедание", "Перфекционизм"],
+      "definition": "Экзистенциальная ось, связанная с безопасностью и предсказуемостью. Подделка — это гиперпланирование ради избегания уязвимости, что преодолевается признанием своих ограничений.",
+      "theology": "Человеческая гордость, заявляющая о собственном суверенитете (Вавилон, Бытие 11), против признания тварных границ и покоя в суверенитете Бога.",
+      "psychology": "Стремление справиться с тревогой путем контроля внешних переменных, вызывающее когнитивную перегрузку, преодолеваемое через допущение неопределенности."
     },
     "tags": ["Theological", "Psychological"]
   },
   {
-    "id": "godly_worldly_grief",
+    "id": "axis_performance_standing",
     "en": {
-      "term": "Godly Grief vs. Worldly Grief",
-      "synonyms": ["Metanoia vs. Autokritike", "Repentance vs. Remorse", "Life-giving sorrow vs. Death-producing shame"],
-      "definition": "The distinction between a sorrow that leads to change by looking toward a loving Source, and a self-referential sorrow that loops in self-pity, pride, and shame.",
-      "theology": "From 2 Corinthians 7:10: 'Godly grief produces a repentance (*metanoia*) that leads to salvation without regret, whereas worldly grief produces death.' Seen in Peter's weeping (restorative) vs. Judas's suicide (fatal).",
-      "psychology": "Contrition (which is focused on repair, relational safety, and learning) vs. Shame (which is self-focused, attacks self-identity, isolates the person, and drives relapse)."
+      "term": "Performance vs. Standing",
+      "synonyms": ["Workaholism", "Identity contingency", "Credential chasing", "LinkedIn comparison"],
+      "definition": "The existential axis mapping justification and worth. Striving treats status as an earned prize; Grace establishes standing as an unconditional starting point.",
+      "theology": "Paul's contrast between 'righteousness by works' (*erga nomou*) and imputed righteousness by grace (*charis*) in Romans 4.",
+      "psychology": "Contingent self-worth which leads to burnout and performance anxiety, resolved by decoupling value from production metrics."
     },
     "ru": {
-      "term": "Печаль ради Бога и печаль мирская",
-      "synonyms": ["Покаяние против угрызений", "Метанойя против самобичевания", "Сокрушение против отчаяния"],
-      "definition": "Различие между сокрушением, которое ведет к изменениям через обращение к Источнику, и эгоцентричной скорбью, которая варится в жалости к себе, гордости и стыде.",
-      "theology": "Из 2 Коринфянам 7:10: «Печаль ради Бога производит неизменное покаяние (*метанойя*) ко спасению, а печаль мирская производит смерть». Пример: покаяние Петра против самоубийства Иуды.",
-      "psychology": "Конструктивная вина (сосредоточенная на исправлении ошибок и восстановлении связи) против парализующего стыда (направленного на уничтожение Я, изолирующего человека и ведущего к срыву)."
+      "term": "Достижения против Статуса",
+      "synonyms": ["Трудоголизм", "Зависимая самооценка", "Погоня за дипломами", "Сравнение успехов"],
+      "definition": "Экзистенциальная ось, определяющая ценность личности. Достиженчество видит в статусе приз; Благодать дает статус как исходный безусловный дар.",
+      "theology": "Апостольское противопоставление праведности от дел (эрга ному) и вменяемой праведности по благодати (харис) в Римлянам 4.",
+      "psychology": "Условная самооценка, ведущая к выгоранию и страху оценки, преодолеваемая путем отделения ценности Я от показателей продуктивности."
     },
-    "tags": ["Theological", "Scripture", "Psychological"]
+    "tags": ["Theological", "Psychological"]
   },
   {
-    "id": "abiding_striving",
+    "id": "axis_obscurity_renown",
     "en": {
-      "term": "Abiding vs. Striving",
-      "synonyms": ["Menō vs. Chōris", "Resting vs. Re-earning", "Branch-connection vs. Graft-straining"],
-      "definition": "The contrast between resting in vital, organic union with a secure source, and the anxious, white-knuckled effort to manufacture spiritual or emotional outcomes from one's own resources.",
-      "theology": "Jesus's teaching in John 15:4: 'Abide (*menō*) in me... apart from me you can do nothing.' Fruit is *borne* by connection, not *produced* by clenching.",
-      "psychology": "The shift from high-tension active strive mode (sympathetic drive, threat response) to a low-tension receptive security state (parasympathetic balance, attachment security)."
+      "term": "Obscurity vs. Renown",
+      "synonyms": ["Vanity metrics", "Fame chasing", "Social gaze", "Public branding"],
+      "definition": "The existential axis dealing with significance. Striving seeks validation from public renown, whereas Grace anchors identity in the quiet, loving gaze of the Source.",
+      "theology": "Chasing the glory (*doxa*) of men rather than the glory that comes from God (John 5:44), resolved by living a life hidden with Christ (Colossians 3:3).",
+      "psychology": "The dread of insignificance and mortality, compensated by seeking social mirrors (likes/followers), resolved by intimate, local relational depth."
     },
     "ru": {
-      "term": "Пребывание против усилий плоти",
-      "synonyms": ["Слияние с Лозой", "Покой против домогательства", "Пребывание против тщетной борьбы"],
-      "definition": "Контраст между покоем в органическом союзе с безопасным Источником и тревожными, напряженными попытками выжать духовные или эмоциональные плоды из собственных скудных ресурсов.",
-      "theology": "Слова Христа в Иоанна 15:4: «Пребудьте (*мено*) во Мне... без Меня не можете делать ничего». Плод не выдавливается усилием, а вырастает благодаря связи.",
-      "psychology": "Переход от напряженного режима «борьбы и бегства» (симпатическая система, реакция на угрозу) к состоянию безопасного принятия (парасимпатический баланс, надежная привязанность)."
+      "term": "Неизвестность против Признания",
+      "synonyms": ["Тщеславие", "Погоня за лайками", "Публичный образ", "Страх безвестности"],
+      "definition": "Экзистенциальная ось, определяющая значимость личности. Борьба ищет подтверждения в славе от людей, тогда как Благодать укореняет Я в тихом любящем взгляде Источника.",
+      "theology": "Погоня за человеческой славой (докса) вместо признания от Бога (Иоанна 5:44), преодолеваемая жизнью, скрытой со Христом в Боге (Колоссянам 3:3).",
+      "psychology": "Страх ничтожности и смертности, компенсируемый поиском социального зеркала (лайки/подписчики), преодолеваемый через глубокие доверительные отношения."
     },
-    "tags": ["Theological", "Scripture", "Psychological"]
-  },
-  {
-    "id": "habit_elements",
-    "en": {
-      "term": "Cue / Routine / Reward",
-      "synonyms": ["Trigger / Action / Payoff", "Habit Loop triad", "Compulsion markers"],
-      "definition": "The three-part sequence that makes up any automated behavior loop: a trigger (cue), the behavior performed (routine), and the resulting dopamine spike or tension release (reward).",
-      "theology": "The mechanical loop of fleshly craving described in Numbers 11: Cue (wilderness dry spell) ➔ Routine (craving Egypt/crying for leeks) ➔ Reward (remembering flavorful food).",
-      "psychology": "The Charles Duhigg habit-loop model. Breaking a loop requires keeping the Cue and Reward, but inserting a new, life-giving Routine (the 'Expulsive Power' replacement strategy)."
-    },
-    "ru": {
-      "term": "Триггер / Действие / Награда",
-      "synonyms": ["Сигнал / Рутина / Вознаграждение", "Элементы привычки", "Петля привычки"],
-      "definition": "Трехчастная последовательность, составляющая любой автоматический цикл поведения: сигнал (триггер), совершаемое действие (рутина) и дофаминовый всплеск или разрядка напряжения (награда).",
-      "theology": "Механический цикл плотского вожделения в Числах 11: Сигнал (пустыня) ➔ Рутина (требование лука и чеснока Египта) ➔ Вознаграждение (иллюзия бесплатного сытного рабства).",
-      "psychology": "Модель петли привычки Чарльза Дахигга. Разрыв петли требует сохранения сигнала и вознаграждения с заменой самой рутины на более здоровую альтернативу."
-    },
-    "tags": ["Psychological", "Theological"]
+    "tags": ["Theological", "Psychological"]
   }
 ];
+
+// ============================================================
+// EXISTENTIAL AXES MAPPING DATA
+// ============================================================
+const AXES_DATA = {
+  rejection_acceptance: {
+    title: "Rejection vs. Acceptance",
+    hunger: "Belonging & Connection (👥)",
+    cue: "A silent text thread, passive email, or critical look.",
+    counterfeit: "Fawning, over-compliance, hyper-checking status tags.",
+    leak: "Transactional acceptance (must perform to remain loved).",
+    shame: "'I am defective; people only tolerate what I provide.'",
+    exit: "Secure Adoption (Ephesians 1:5). Regular screenless solitude and vulnerable truth confession.",
+    coords: { x: 30, y: 85 }
+  },
+  scarcity_abundance: {
+    title: "Scarcity vs. Abundance",
+    hunger: "Security & Provision (🕯️)",
+    cue: "Sudden account repair bill, financial dip, or peer purchase.",
+    counterfeit: "Banking app refreshing, panic hoarding, retail shopping.",
+    leak: "Physical assets rust and decay; future ruin fear remains.",
+    shame: "'I am exposed and unprotected; I will end up destitute.'",
+    exit: "Provided Portion (Matthew 6:26). Active anonymous giving (generosity) to break scarcity threat loops.",
+    coords: { x: 85, y: 20 }
+  },
+  control_surrender: {
+    title: "Control vs. Surrender",
+    hunger: "Safety & Predictability (🧭)",
+    cue: "Relational ambiguity or sudden schedule adjustments.",
+    counterfeit: "Hyper-planning roadmaps, micromanaging tasks, info binging.",
+    leak: "Real-world variables drift from plans, causing collapse.",
+    shame: "'If I let go of the wheel, everything breaks. I am incompetent.'",
+    exit: "Sovereign Sanctuary (Romans 8:28). Limit ritual (writing and shredding uncontrollables) + strict Sabbath blocks.",
+    coords: { x: 25, y: 35 }
+  },
+  performance_standing: {
+    title: "Performance vs. Standing",
+    hunger: "Worth & Justification (🛠️)",
+    cue: "Slow workday, colleague promotion card, or small mistake.",
+    counterfeit: "Workaholism, late emails, credential stacking.",
+    leak: "Striving metrics reset daily ('What have you done today?').",
+    shame: "'I am a lazy fraud. My value is contingent on output.'",
+    exit: "Imputed Righteousness (Romans 4:5). Scheduled goal-free time during peak work hours.",
+    coords: { x: 70, y: 75 }
+  },
+  obscurity_renown: {
+    title: "Obscurity vs. Renown",
+    hunger: "Significance & Gaze (🌌)",
+    cue: "Low post engagement or feeling invisible in meetings.",
+    counterfeit: "Digital curation, name-dropping, public self-branding.",
+    leak: "Public attention is volatile; the spotlight shifts.",
+    shame: "'I am small and unseen. My life leaves no trace.'",
+    exit: "The Hidden Life (Colossians 3:3). Secret service (acts of help where credit is physically impossible).",
+    coords: { x: 50, y: 50 }
+  }
+};
+
+// ============================================================
+// MODERN APP TRAPS DATABASE
+// ============================================================
+const APP_TRAPS_DATA = {
+  rings: {
+    title: "Fitness Trackers (Calorie Rings)",
+    axis: "Performance & Scarcity",
+    cue: "Wrist buzz or 'incomplete rings' visual display.",
+    routine: "Jogging in circles late at night just to close rings.",
+    reward: "A brief fireworks animation and streak preservation.",
+    dependency: "Worth is outsourced to sensors. Rest is processed as guilt, driving chronic physical strain.",
+    displacement: "Treat the body as a received asset. Move for joy and rest as a scheduled act of trust."
+  },
+  slack: {
+    title: "Slack / Work Messages",
+    axis: "Control & Acceptance",
+    cue: "Red notification badge or desktop alert ping.",
+    routine: "Instant replies, late-night checks, and typing indicators monitoring.",
+    reward: "Temporary relief of anxiety and proof of responsiveness.",
+    dependency: "Relational standing is made contingent on response speeds. Willpower is depleted to be 'seen.'",
+    displacement: "Establish strict offline boundaries. Rest on received standing; let messages wait."
+  },
+  linkedin: {
+    title: "LinkedIn Credentials",
+    axis: "Performance & Obscurity",
+    cue: "Seeing a colleague's certificate or promotion announcement.",
+    routine: "Stacking minor online certifications and curating profile titles.",
+    reward: "Likes, views, and comments indicating high professional value.",
+    dependency: "Career significance is tied to peer rankings. The metric resets daily, generating impostor fear.",
+    displacement: "Imputed worth. Do work secretly without posting. Celebrate colleagues' success."
+  },
+  streaks: {
+    title: "Gamified Learning Streaks",
+    axis: "Performance & Scarcity",
+    cue: "App push alarm warning: 'Your streak will be lost!'",
+    routine: "Completing a 1-minute basic exercise simply to save the number.",
+    reward: "Number matches the next day; relief of saving the record.",
+    dependency: "Loss aversion makes metrics an identity-contingency item. Willpower is consumed under threat.",
+    displacement: "Intentionally break the streak. Re-source learning as a slow, unmeasured craft."
+  },
+  scroll: {
+    title: "Infinite Feeds (Instagram/TikTok)",
+    axis: "Rejection & Obscurity",
+    cue: "Somatic fatigue, boredom, or feeling forgotten.",
+    routine: "Opening the feed; scrolling for novel triggers.",
+    reward: "Temporary dopamine buzz from seeing surprising items.",
+    dependency: "Simulated connection. Stagnant reservoir leaves loneliness sharper, driving compulsive scrolling.",
+    displacement: "Take connection hunger to local safe relationships, silence, or prayer. Delete the app."
+  }
+};
+
+// ============================================================
+// COMPULSION LOOP SIMULATOR PROFILES
+// ============================================================
+const SIM_LOOPS_DATA = {
+  overworker: {
+    title: "The Overworker Loop (Performance Axis)",
+    initial: { W: 90, S: 30, SH: 5 },
+    params: { leak: 1.1, shame: 1.6, grace: 1.3 },
+    strivingMsg: "Checked emails at 11:30 PM. Staging metric proof. (-15 Willpower, +20 Stress, +5 Shame)",
+    strivingDelta: { W: -15, S: 20, SH: 5 },
+    exitMsg: "Sabbath boundary activated. Resting on imputed worth. Worth decoupled from output. (+30 Willpower, -25 Stress, -15 Shame)",
+    exitDelta: { W: 30, S: -25, SH: -15 }
+  },
+  doomscroller: {
+    title: "The Doomscroller Loop (Control Axis)",
+    initial: { W: 80, S: 45, SH: 10 },
+    params: { leak: 1.3, shame: 1.2, grace: 1.5 },
+    strivingMsg: "Refreshed forums for 40 minutes seeking safety details. (-12 Willpower, +18 Stress, +12 Shame)",
+    strivingDelta: { W: -12, S: 18, SH: 12 },
+    exitMsg: "Limit Ritual activated. Shredded uncontrollable variables. Ambiguity accepted. (+25 Willpower, -30 Stress, -20 Shame)",
+    exitDelta: { W: 25, S: -30, SH: -20 }
+  },
+  pleaser: {
+    title: "The People-Pleaser Loop (Acceptance Axis)",
+    initial: { W: 85, S: 25, SH: 15 },
+    params: { leak: 0.9, shame: 1.8, grace: 1.4 },
+    strivingMsg: "Fawned to resolve passive email tension. Sent transactional gift. (-18 Willpower, +15 Stress, +15 Shame)",
+    strivingDelta: { W: -18, S: 15, SH: 15 },
+    exitMsg: "Secure Adoption anchor loaded. Screenless solitude practiced. (+20 Willpower, -20 Stress, -25 Shame)",
+    exitDelta: { W: 20, S: -20, SH: -25 }
+  },
+  therapist: {
+    title: "The Retail Therapist Loop (Scarcity Axis)",
+    initial: { W: 75, S: 40, SH: 20 },
+    params: { leak: 1.4, shame: 1.4, grace: 1.2 },
+    strivingMsg: "Refreshed cart checking price drops. Panic purchase made. (-14 Willpower, +10 Stress, +25 Shame)",
+    strivingDelta: { W: -14, S: 10, SH: 25 },
+    exitMsg: "Radical Outflow activated. Donated money anonymously. Scarcity broken. (+20 Willpower, -15 Stress, -30 Shame)",
+    exitDelta: { W: 20, S: -15, SH: -30 }
+  },
+  compares: {
+    title: "The Compare-and-Despair Loop (Obscurity Axis)",
+    initial: { W: 80, S: 35, SH: 25 },
+    params: { leak: 1.2, shame: 1.5, grace: 1.6 },
+    strivingMsg: "Scrolled competitor highlight reels. Self-rating calculated. (-10 Willpower, +15 Stress, +20 Shame)",
+    strivingDelta: { W: -10, S: 15, SH: 20 },
+    exitMsg: "Secret Service activated. Performed creditless work behind the scenes. (+30 Willpower, -25 Stress, -35 Shame)",
+    exitDelta: { W: 30, S: -25, SH: -35 }
+  }
+};
+
+// ============================================================
+// FREQUENCY & ANCESTRAL ARCHETYPES DATABASE
+// ============================================================
+const ARCHETYPES_DATA = {
+  abraham: {
+    name: "Abraham (Авраам)",
+    calling: "Faith & Covenant Fatherhood (אֱמוּנָה - Emunah)",
+    inverse: "Fear, self-protection, and deceptive manipulation.",
+    failure: "Descended to Egypt under famine; passed Sarah off as his sister; fathered Ishmael in self-effort.",
+    legacy: "Isaac repeats the sister-deception script in Gerar. Jacob uses identity theft to steal the blessing."
+  },
+  jacob: {
+    name: "Jacob (Иаков)",
+    calling: "Covenant Inheritance by election (Grace)",
+    inverse: "Heel-grabbing (Aqab), striving, and identity theft.",
+    failure: "Traded stew for Esau's birthright; wore Esau's clothes to steal the blessing; wrestled Padan-Aram in self-strength.",
+    legacy: "Jacob is deceived by Laban (younger substituted for older), and later deceived by his own sons using goat's blood."
+  },
+  david: {
+    name: "David (Давид)",
+    calling: "Intimate Worship (Tehillah) & Kingly Shelter",
+    inverse: "Entitlement, voyeurism, and relational exploitation.",
+    failure: "Abused kingly power to take Bathsheba; murdered Uriah; ordered a military census to rely on metrics.",
+    legacy: "Amnon exploits Tamar; Absalom sleeps with David's concubines on the palace roof; Solomon builds a massive harem."
+  },
+  elijah: {
+    name: "Elijah (Илия)",
+    calling: "Prophetic Fire & Covenant Restoration (Shuv)",
+    inverse: "Suicidal collapse, extreme isolation, and self-pity.",
+    failure: "Fled Jezebel's threat; collapsed under the broom tree requesting death; hid in the cave with a self-pitying script.",
+    legacy: "Prophetic frequency is targeted with intense isolation, depression, and dark night of the soul."
+  }
+};
