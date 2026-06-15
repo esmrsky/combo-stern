@@ -43,8 +43,8 @@ function initNavigation() {
   const navButtons = document.querySelectorAll(".nav-item button");
   const tabContents = document.querySelectorAll(".tab-content");
   const menuBtn = document.getElementById("menu-btn");
-  const navMenu = document.getElementById("nav-menu");
-
+  const sidebar = document.querySelector(".sidebar");
+ 
   navButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const targetTab = btn.dataset.tab;
@@ -60,23 +60,26 @@ function initNavigation() {
           tab.classList.add("active");
         }
       });
-
+ 
       // Special resize event for canvas in simulator
       if (targetTab === "simulator") {
         setTimeout(resizeCanvas, 50);
       }
-
+ 
       // Close mobile menu on click
-      if (navMenu.classList.contains("show")) {
-        navMenu.classList.remove("show");
+      if (sidebar && sidebar.classList.contains("open")) {
+        sidebar.classList.remove("open");
+        if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
       }
     });
   });
-
+ 
   // Mobile menu button toggle
-  if (menuBtn && navMenu) {
+  if (menuBtn && sidebar) {
     menuBtn.addEventListener("click", () => {
-      navMenu.classList.toggle("show");
+      sidebar.classList.toggle("open");
+      const isOpen = sidebar.classList.contains("open");
+      menuBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
   }
 }
@@ -490,13 +493,16 @@ function syncSimParameters() {
 }
 
 function resizeCanvas() {
-  if (!canvas) return;
+  if (!canvas || !ctx) return;
   const rect = canvas.parentNode.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.resetTransform();
+  ctx.scale(dpr, dpr);
   drawChart();
 }
-
+ 
 window.addEventListener("resize", resizeCanvas);
 
 function logTerminal(msg, color = "text-stone-400") {
@@ -600,12 +606,16 @@ function updateSimUI() {
 
 function drawChart() {
   if (!canvas || !ctx) return;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const rect = canvas.getBoundingClientRect();
+  const w = rect.width;
+  const h = rect.height;
+
+  ctx.clearRect(0, 0, w, h);
 
   if (dataPoints.length === 0) return;
 
-  const dx = canvas.width / (maxDataPoints - 1);
-  const dy = canvas.height / 100;
+  const dx = w / (maxDataPoints - 1);
+  const dy = h / 100;
 
   // Grid lines
   const theme = document.documentElement.getAttribute("data-theme");
@@ -613,8 +623,8 @@ function drawChart() {
   ctx.lineWidth = 1;
   for (let i = 25; i <= 75; i += 25) {
     ctx.beginPath();
-    ctx.moveTo(0, canvas.height - i * dy);
-    ctx.lineTo(canvas.width, canvas.height - i * dy);
+    ctx.moveTo(0, h - i * dy);
+    ctx.lineTo(w, h - i * dy);
     ctx.stroke();
   }
 
@@ -629,7 +639,7 @@ function drawChart() {
     dataPoints.forEach((pt, idx) => {
       const val = pt[key];
       const x = idx * dx;
-      const y = canvas.height - val * dy;
+      const y = h - val * dy;
       if (idx === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     });
@@ -868,12 +878,12 @@ function renderGlossary() {
     // Setup visual components
     let versesHTML = "";
     if (item.verses && item.verses.length > 0) {
-      versesHTML = `<div class="glossary-synonyms" style="margin-top: 0.5rem; background: var(--grace-soft); border-left: 2px solid var(--grace); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: var(--ink-dim);"><strong>Verses:</strong> ${item.verses.join(", ")}</div>`;
+      versesHTML = `<div class="glossary-synonyms" style="margin-top: 0.5rem; background: var(--grace-soft); border-left: 2px solid var(--grace); padding: 4px 8px; border-radius: 4px; font-size: 0.82rem; color: var(--ink-dim);"><strong>Verses:</strong> ${item.verses.join(", ")}</div>`;
     }
 
     let topicsHTML = "";
     if (item.topics && item.topics.length > 0) {
-      topicsHTML = `<div style="font-size: 0.72rem; color: var(--ink-faint); margin-top: 0.3rem;"><strong>Topics:</strong> ${item.topics.join(" · ")}</div>`;
+      topicsHTML = `<div style="font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.3rem;"><strong>Topics:</strong> ${item.topics.join(" · ")}</div>`;
     }
 
     card.innerHTML = `
@@ -900,7 +910,7 @@ function renderGlossary() {
       </div>
       ${topicsHTML}
       <div style="display:flex; gap:0.3rem; margin-top:auto; padding-top:1rem; border-top:1px dashed var(--border);">
-        ${item.tags.map(t => `<span class="glossary-tag-btn active" style="padding: 1px 7px; font-size: 0.58rem; cursor:default; border-color: var(--accent); color: var(--accent);">${t}</span>`).join("")}
+        ${item.tags.map(t => `<span class="glossary-tag-btn active" style="padding: 2px 8px; font-size: 0.72rem; cursor:default; border-color: var(--accent); color: var(--accent);">${t}</span>`).join("")}
       </div>
     `;
 

@@ -22,9 +22,18 @@
 
   <!-- 🧭 Left Sidebar Navigation (Desktop) / Collapsible Menu (Mobile) -->
   <nav class="sidebar" aria-label="Main Navigation">
-    <div class="sidebar-brand">
-      <div class="sidebar-logo">THE <b>LOOP BREAKER</b></div>
-      <p class="sidebar-desc">Reference & Systems Theology Workbook</p>
+    <div class="sidebar-header-row">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">THE <b>LOOP BREAKER</b></div>
+        <p class="sidebar-desc">Reference & Systems Theology Workbook</p>
+      </div>
+      <button class="menu-btn" id="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
     </div>
 
     <ul class="nav-menu" id="nav-menu">
@@ -77,18 +86,6 @@
 
   <!-- 💻 Main Content Container -->
   <main class="workspace" id="main-content">
-    
-    <!-- Mobile top bar header -->
-    <header class="workspace-header">
-      <div class="workspace-title">The Loop Breaker Project</div>
-      <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
-    </header>
 
     <div class="content-pane">
 
