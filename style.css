@@ -1959,3 +1959,6 @@ html[data-theme="light"] .blueprint-card {
     padding: 0 1.2rem 1.2rem 1.2rem;
   }
 }
+
+/* reading comfort: balance display text */
+h1, h2, h3 { text-wrap: balance; }
